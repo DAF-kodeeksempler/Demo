@@ -4,6 +4,40 @@ Dette repo er en kopi af https://github.com/Dataforsyningen/Demo , med ændrede 
 
 AtomFeed er fjernet, da datafordeleren bruger filudtræk defineret via selvbetjeningsportalen.
 
-Undgå bøvl med OpenLayers  - Tjek vores maps api ud <br> https://github.com/dataforsyningen/okapi
+## Eksempler
+Alle eksempelfiler indeholder følgende i toppen.
+```js
+    // Userinformation from your Datafordeler user
+    var dafusername = 'ABCDEFGHIJ'
+    var dafpassword = 'Your password here!'
+```
+Udskift disse med dine oplysninger.
 
-Offentlig Kort API modul til indlejring af baggrundskort på hjemmesider. Modulet er tiltænkt webudviklere der har brug for en let implementerbar og fleksibel kortvisning på egen hjemmeside. <br>
+### Leaflet
+* __Eksempel 1__:
+  * Ændring på zoomlevel parsing ("L" behøves ikke mere)
+  * ```true``` sat til ```'TRUE'``` i nogle argumenter 
+  * Der mangler et native transparent lag, så vi bruger leaflets opacity
+  * Generel navngivning og endpoint ændringer   
+* __Eksempel 2__:
+
+  TODO
+* __Eksempel 3__:
+
+  TODO
+* __Eksempel 4__:
+
+  TODO
+### OpenLayers
+* __Eksempel 1__:
+
+  TODO
+* __Eksempel 2__:
+
+  TODO
+* __Eksempel 3__:
+
+  TODO
+* __Eksempel 4__:
+
+  TODO
