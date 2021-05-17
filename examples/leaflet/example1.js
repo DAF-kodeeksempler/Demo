@@ -108,7 +108,6 @@
     var matrikelDAF = L.tileLayer.wms('https://services.datafordeler.dk/Matrikel/MatrikelGaeldendeOgForeloebigWMS/1.0.0/WMS?username='+ dafusername + '&password=' + dafpassword , {
         transparent: 'TRUE',
         layers: 'MatrikelSkel_Gaeldende,Centroide_Gaeldende',
-        token: kftoken,
         format: 'image/png',
         attribution: myAttributionText,
         continuousWorld: true,
@@ -130,7 +129,6 @@
     var hillshadeDAF = L.tileLayer.wms('https://services.datafordeler.dk/DHMNedboer/dhm/1.0.0/WMS?username='+ dafusername + '&password=' + dafpassword , {
         transparent: 'TRUE',
         layers: 'dhm_terraen_skyggekort',
-        token: kftoken,
         format: 'image/png',
         attribution: myAttributionText,
         continuousWorld: true,
