@@ -20,8 +20,8 @@ Udskift disse med dine oplysninger.
   * Der mangler et native transparent lag, så vi bruger leaflets opacity
   * Generel navngivning og endpoint ændringer   
 * __Eksempel 2__:
-
-  TODO
+  * Samme som eksempel 1, når det kommer til wms services.
+  
 * __Eksempel 3__:
 
   TODO
