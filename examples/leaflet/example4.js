@@ -3,9 +3,14 @@
     // Set Kortforsyningen token, replace with your own token
     var kftoken = 'd12107f70a3ee93153f313c7c502169a';
 
+    // Userinformation from your Datafordeler user
+    var dafusername = 'ABCDEFGHIJ'
+    var dafpassword = 'Your password here!'
+
     // Set the attribution (the copyright statement shown in the lower right corner)
     // We do this as we want the same attributions for all layers
-    var myAttributionText = '&copy; <a target="_blank" href="https://download.kortforsyningen.dk/content/vilk%C3%A5r-og-betingelser">Styrelsen for Dataforsyning og Effektivisering</a>';
+    var myAttributionTextKF = '&copy; <a target="_blank" href="https://download.kortforsyningen.dk/content/vilk%C3%A5r-og-betingelser">Styrelsen for Dataforsyning og Effektivisering - Kortforsyningen</a>';
+    var myAttributionTextDAF = '&copy; <a target="_blank" href="https://download.kortforsyningen.dk/content/vilk%C3%A5r-og-betingelser">Styrelsen for Dataforsyning og Effektivisering - Datafordeler</a>';
 
 
     // Make the map object using the custom projection
@@ -19,7 +24,7 @@
 
 
     // Make the map object using the custom projection
-    var map = new L.Map('map', {
+    var mapKF = new L.Map('mapKF', {
         crs: crs,
         continuousWorld: true,
         center: [55.709155, 11.459081], // Set center location
@@ -28,9 +33,18 @@
         maxzoom: 14
     });
 
-    // Skærmkort [WMTS:topo_skaermkort]
-    var wmts = L.tileLayer('https://services.kortforsyningen.dk/topo_skaermkort?token=' + kftoken + '&request=GetTile&version=1.0.0&service=WMTS&Layer=dtk_skaermkort&style=default&format=image/jpeg&TileMatrixSet=View1&TileMatrix={zoom}&TileRow={y}&TileCol={x}', {
-        attribution: myAttributionText,
+    var mapDAF = new L.Map('mapDAF', {
+        crs: crs,
+        continuousWorld: true,
+        center: [55.709155, 11.459081], // Set center location
+        zoom: 9, // Set zoom level
+        minzoom: 0,
+        maxzoom: 14
+    });
+
+    // Skærmkort [WMTS:topo_skaermkort] Kortforsyningen
+    var wmtsKF = L.tileLayer('https://services.kortforsyningen.dk/topo_skaermkort?token=' + kftoken + '&request=GetTile&version=1.0.0&service=WMTS&Layer=dtk_skaermkort&style=default&format=image/jpeg&TileMatrixSet=View1&TileMatrix={zoom}&TileRow={y}&TileCol={x}', {
+        attribution: myAttributionTextKF,
         crossOrigin: true,
         zoom: function (data) {
             var zoomlevel = data.z;
@@ -39,45 +53,92 @@
             else
                 return 'L' + zoomlevel;
         }
-    }).addTo(map);
+    }).addTo(mapKF);
 
+    // Skærmkort [WMTS:topo_skaermkort] Datafordeleren
+    // Notice the url now takes the username and password, and the zoom level is the number, without "Lxx" added. The layer name has also changed.
+    var wmtsDAF = L.tileLayer('https://services.datafordeler.dk/Dkskaermkort/topo_skaermkort_wmts/1.0.0/wmts?username='+ dafusername + '&password=' + dafpassword + '&request=GetTile&version=1.0.0&service=WMTS&Layer=topo_skaermkort&style=default&format=image/jpeg&TileMatrixSet=View1&TileMatrix={zoom}&TileRow={y}&TileCol={x}', {
+	    attribution: myAttributionTextDAF,
+        crossOrigin: true,
+        zoom: function (data) {
+            var zoomlevel = data.z;
+            return zoomlevel
+        }
+    }).addTo(mapDAF);
 
-    // Skærmkort [WMT:topo_skaermkort]
-    var wms = L.tileLayer.wms('https://services.kortforsyningen.dk/topo_skaermkort', {
+    // Skærmkort [WMT:topo_skaermkort] Kortforsyningen
+    var wmsKF = L.tileLayer.wms('https://services.kortforsyningen.dk/topo_skaermkort', {
         layers: 'dtk_skaermkort',
         token: kftoken,
         format: 'image/png',
-        attribution: myAttributionText
+        attribution: myAttributionTextKF
+    });
+
+    // Skærmkort [WMS:topo_skaermkort] Datafordeleren
+    var wmsDAF = L.tileLayer.wms('https://services.datafordeler.dk/Dkskaermkort/topo_skaermkort/1.0.0/wms?username='+ dafusername + '&password=' + dafpassword , {
+        layers: 'dtk_skaermkort',
+        transparent: 'FALSE',
+        format: 'image/png',
+        attribution: myAttributionTextDAF
     });
 
     // Define layer groups for layer control
-    var baseLayers = {
-        "Skærmkort": wmts
+    var baseLayersKF = {
+        "Skærmkort - Kortforsyningen": wmtsKF
+    };
+
+    var baseLayersDAF = {
+        "Skærmkort - Datafordeleren": wmtsDAF
     };
 
     // Switch to WMS in zoomlevel > 13
-    map.on('zoomend', function () {
-        if (map.getZoom() > 13) {
-            if (map.hasLayer(wmts)) {
-                map.removeLayer(wmts);
+    mapKF.on('zoomend', function () {
+        if (mapKF.getZoom() > 13) {
+            if (mapKF.hasLayer(wmtsKF)) {
+                mapKF.removeLayer(wmtsKF);
             }
-            if (!map.hasLayer(wms)) {
-                map.addLayer(wms);
+            if (!mapKF.hasLayer(wmsKF)) {
+                mapKF.addLayer(wmsKF);
             }
         } else {
-            if (!map.hasLayer(wmts)) {
-                map.addLayer(wmts);
+            if (!mapKF.hasLayer(wmtsKF)) {
+                mapKF.addLayer(wmtsKF);
             }
-            if (map.hasLayer(wms)) {
-                map.removeLayer(wms);
+            if (mapKF.hasLayer(wmsKF)) {
+                mapKF.removeLayer(wmsKF);
+            }
+        }
+    });
+
+    mapDAF.on('zoomend', function () {
+        if (mapDAF.getZoom() > 13) {
+            if (mapDAF.hasLayer(wmtsDAF)) {
+                mapDAF.removeLayer(wmtsDAF);
+            }
+            if (!mapDAF.hasLayer(wmsDAF)) {
+                mapDAF.addLayer(wmsDAF);
+            }
+        } else {
+            if (!mapDAF.hasLayer(wmtsDAF)) {
+                mapDAF.addLayer(wmtsDAF);
+            }
+            if (mapDAF.hasLayer(wmsDAF)) {
+                mapDAF.removeLayer(wmsDAF);
             }
         }
     });
 
     // Add layer control to map
-    L.control.layers(baseLayers).addTo(map);
+    L.control.layers(baseLayersKF).addTo(mapKF);
+    L.control.layers(baseLayersDAF).addTo(mapDAF);
 
     // Add scale line to map
-    L.control.scale({imperial: false}).addTo(map); // disable feet units
+    L.control.scale({imperial: false}).addTo(mapKF); // disable feet units
+    L.control.scale({imperial: false}).addTo(mapDAF); // disable feet units
+
+    // Sync the maps
+    mapKF.sync(mapDAF);
+    mapDAF.sync(mapKF)
+
 
 })();

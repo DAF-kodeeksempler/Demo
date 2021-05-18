@@ -30,8 +30,9 @@ Udskift disse med dine oplysninger.
   * Datafordeleren supporter ikke et API der minder om GeoSearch fra kortforsyningen, så det er ikke implementeret.
 
 * __Eksempel 4__:
-
-  TODO
+  * Import fra eksempel 1 datakilder.
+  * Viser nu 2 kort, synkroniseret, så man kan se kortforsyningen i venstre side, og datafordeleren i højre.
+  
 ### OpenLayers
 * __Eksempel 1__:
 
