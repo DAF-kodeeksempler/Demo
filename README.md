@@ -4,6 +4,8 @@ Dette repo er en kopi af https://github.com/Dataforsyningen/Demo , med ændrede 
 
 AtomFeed er fjernet, da datafordeleren bruger filudtræk defineret via selvbetjeningsportalen.
 
+okapi fra kortforsyningen virker også med Datafordeleren: https://github.com/dataforsyningen/okapi
+
 ## Eksempler
 Alle eksempelfiler indeholder følgende i toppen.
 ```js
