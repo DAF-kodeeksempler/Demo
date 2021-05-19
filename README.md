@@ -13,7 +13,7 @@ Alle eksempelfiler indeholder følgende i toppen.
     var dafusername = 'ABCDEFGHIJ'
     var dafpassword = 'Your password here!'
 ```
-Udskift disse med dine oplysninger.
+Udskift disse med dine oplysninger. opret bruger, eller login fra https://selfservice.datafordeler.dk/
 
 ### Leaflet
 * __Eksempel 1__:
