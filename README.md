@@ -18,25 +18,28 @@ Udskift disse med dine oplysninger.
 ### Leaflet
 * __Eksempel 1__:
   * Ændring på zoomlevel parsing ("L" behøves ikke mere)
-  * ```true``` sat til ```'TRUE'``` i nogle argumenter 
+  * ```true``` sat til ```'TRUE'``` når ```Transparent``` defineres
   * Der mangler et native transparent lag, så vi bruger leaflets opacity
-  * Generel navngivning og endpoint ændringer   
+  * Generel navngivning og endpoint ændringer
 
 * __Eksempel 2__:
   * Samme som eksempel 1, når det kommer til wms services.
-  
+
 * __Eksempel 3__:
   * Samme som eksempel 2.
   * Datafordeleren supporter ikke et API der minder om GeoSearch fra kortforsyningen, så det er ikke implementeret.
 
 * __Eksempel 4__:
-  * Import fra eksempel 1 datakilder.
+kurt  * Import fra eksempel 1 datakilder.
   * Viser nu 2 kort, synkroniseret, så man kan se kortforsyningen i venstre side, og datafordeleren i højre.
-  
+
 ### OpenLayers
 * __Eksempel 1__:
+  * Zoomlevel er ændret som i eksempel 1 for leaflet. De er hardcoded som ```0,1,2,3,...``` i ```myTileGridDAF```.
+  * ```true``` sat til ```'TRUE'``` når ```TRANSPARENT``` defineres
+  * Der mangler et native transparent lag, så vi bruger openlayers opacity
+  * Generel navngivning og endpoint ændringer
 
-  TODO
 * __Eksempel 2__:
 
   TODO
